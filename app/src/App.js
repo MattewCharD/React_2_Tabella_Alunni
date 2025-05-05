@@ -94,16 +94,27 @@ export default function App() {
   );
 }
 
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+function showTable(squares) {
+  const a = [
+    {
+      "id": "1",
+      "nome" : "ivan",
+      "cognome" : "bruno"
+    },
+    {
+      "id": "2",
+      "nome" : "mario",
+      "cognome" : "rossi"
+    },
+    {
+      "id": "3",
+      "nome" : "giuseppe",
+      "cognome" : "verdi"
+    },{
+      "id": "4",
+      "nome" : "claudio",
+      "cognome" : "benve"
+    }
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
