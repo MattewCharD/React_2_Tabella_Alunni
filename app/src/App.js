@@ -1,10 +1,12 @@
 import "./App.css";
 import { useState } from "react";
+import AlunnoRow from './AlunnoRow.js'
 
 function App() {
   const [alunni, setAlunni] = useState([]);
   const [loading, setLoading] = useState(false);
   const [inserimento, setInserimento]=useState(false);
+  const [eliminazione, setEliminazione]=useState(false);
   const [nome, setNome]=useState("");
   const [cognome, setCognome]=useState("");
 
@@ -23,7 +25,7 @@ function App() {
   async function loadB(){
     setLoading(true);
     const response = await fetch('http://localhost:8080/alunni');
-    const data = response.json();
+    const data = await response.json();
       setAlunni(data);
       setLoading(false);
   
@@ -31,6 +33,19 @@ function App() {
 
   function salvaAlunno(){
     setInserimento(false);
+    fetch('http://localhost:8080/alunni', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({nome: nome, cognome: cognome})
+    })
+    .then(response => response.json())
+    .then(data => loadA());
+  }
+
+  function eliminaAlunno(){
+    setEliminazione(false);
     fetch('http://localhost:8080/alunni', {
       method: "POST",
       headers: {
@@ -51,11 +66,7 @@ function App() {
       <table border="1">
         {
           alunni.map(alunno =>
-            <tr>
-              <td>{alunno.id}</td>
-              <td>{alunno.nome}</td>
-              <td>{alunno.cognome}</td>
-            </tr>
+            <AlunnoRow  alunno={alunno} />
           )
         }
       </table>
